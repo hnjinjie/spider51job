@@ -2,7 +2,7 @@ package com.zyo.bean;
 
 /**
  * 岗位实体类
- * @author ZhangXin、YiJia、YiZeXin、OuYangJinJie
+ * @author oyjj
  *
  */
 public class Job {

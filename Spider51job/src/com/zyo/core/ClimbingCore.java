@@ -17,12 +17,12 @@ import org.jsoup.nodes.Element;
 
 import com.zyo.bean.Job;
 import com.zyo.bean.JobCount;
-import com.zyo.bean.Page;
+import com.zyo.bean.JobUrlPage;
 
 import net.sf.json.JSONArray;
 
 /**
- * 
+ * 爬取数据核心方法类
  * @author Jinjie
  *
  */
@@ -42,6 +42,7 @@ public class ClimbingCore {
 			doc = Jsoup.connect(url).get();
 			element = doc.select(".dw_table .dw_tlc .rt").get(1);
 		} catch (IOException e) {
+			System.out.println("您要爬取地址有误，请检查配置文件中需要爬取的城市和岗位信息");
 			e.printStackTrace();
 		}
 		String text = element.text();
@@ -56,15 +57,15 @@ public class ClimbingCore {
 	 * @return pagelist 各城市地区各岗位集合
 	 * 
 	 */
-	public List<Page> getPagelist(String url) {
-		List<Page> pagelist = new ArrayList<>();
+	public List<JobUrlPage> getPagelist(String url) {
+		List<JobUrlPage> pagelist = new ArrayList<>();
 		//读取配置文件
 		ResourceBundle rb = ResourceBundle.getBundle("com.zyo.ui/citytitle"); 
 		//分别读取配置文件中城市和岗位信息，以逗号分割转数组
 		String[] city = rb.getString("city").split(",");
 		String[] names= rb.getString("cityname").split(",");
 		String[] gw = rb.getString("title").split(",");
-		Page p = null;
+		JobUrlPage p = null;
 		for (int i = 0; i < city.length; i++) {
 			for (int j = 0; j < gw.length; j++) {
 				//String oneurl = null;
@@ -75,7 +76,7 @@ public class ClimbingCore {
 				String joburl = url.format(url, city[i], gw[j], "%s");
 				// 将得到的各城市各岗位信息封装到page对象（此时page应该有 city*gw 个对象）
 				if (page != 0) {
-					p = new Page();
+					p = new JobUrlPage();
 					p.setCity(names[i]);
 					p.setJobTitle(gw[j]);
 					p.setNum(page);
@@ -92,7 +93,7 @@ public class ClimbingCore {
 	 * @param page
 	 * @return
 	 */
-	public boolean parserHtmlWriterJson(Page page,File file,List<JobCount> counlist) {
+	public boolean parserHtmlWriterJson(JobUrlPage page,File file,List<JobCount> counlist) {
 		if (page != null) {
 			// 创建10个线程
 			ExecutorService es = Executors.newFixedThreadPool(10);

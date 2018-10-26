@@ -141,6 +141,8 @@ public class SumChart extends JFrame {
 
 	/**
 	 * 饼型图
+	 * 岗位数量及占比
+	 * 
 	 * 
 	 * @param counlist
 	 */
@@ -183,8 +185,12 @@ public class SumChart extends JFrame {
 		for (int i = 0; i < gw.length; i++) {
 			dataset.setValue(gw[i], titleSum[i]);
 		}
-		// dataset.setValue("java", 200);
-		JFreeChart chart = ChartFactory.createPieChart3D("饼型图", // 主标题的名称
+		/*如果只是想得到每个岗位在当前城市中的数量及占比图，
+		那么只需要遍历集合每遍历一次变保存一张城市饼图，//dataset.setValue(gw[i], titleSum[i]);
+		也就是每个城市每个岗位都生成一张图表，这种饼图意义不大
+		*/
+		
+		JFreeChart chart = ChartFactory.createPieChart3D("岗位数量及占比", // 主标题的名称
 				dataset, // 图标显示的数据集合
 				true, // 是否显示子标题
 				true, // 是否生成提示的标签

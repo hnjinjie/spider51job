@@ -7,7 +7,7 @@ package com.zyo.bean;
  * @author oyjj
  *
  */
-public class Page {
+public class JobUrlPage {
 	private String city;//城市
 	private String jobTitle;//岗位名称
 	private int page;//页面数量

@@ -1,0 +1,8 @@
+citytitle.properties文件说明：
+
+city=190200,010000,020000,030000
+cityname=\u957F\u6C99,\u5317\u4EAC,\u4E0A\u6D77,\u5E7F\u5DDE
+title=java,php,python,ios
+
+city：要爬取的城市的编号，cityname：城市的中文名称；两者必须一一对应。
+title：需要爬取的岗位
